@@ -17,3 +17,40 @@ sealed class HomeUiState{
     object Error : HomeUiState()
     object Loading : HomeUiState()
 }
+
+class HomeBukuViewModel(private val Bk: BukuRepository) : ViewModel() {
+    var BkUiState: HomeUiState by mutableStateOf(HomeUiState.Loading)
+        private set
+
+    init {
+        getBk()
+    }
+
+    fun getBk() {
+        viewModelScope.launch {
+            BkUiState = HomeUiState.Loading
+            BkUiState = try {
+                HomeUiState.Success(Bk.getBuku().data)
+            } catch (e: IOException) {
+                Log.e("GetMhsError", "IOException occurred: ${e.message}", e)
+                HomeUiState.Error
+            } catch (e: HttpException) {
+                Log.e("GetMhsError", "HttpException occurred: ${e.message}", e)
+                HomeUiState.Error
+            }
+        }
+    }
+
+
+    fun deleteBk(id_buku: String){
+        viewModelScope.launch {
+            try {
+                Bk.deleteBuku(id_buku)
+            } catch (e: IOException){
+                HomeUiState.Error
+            } catch (e: HttpException){
+                HomeUiState.Error
+            }
+        }
+    }
+}
