@@ -9,3 +9,17 @@ data class Anggota(
     val email: String,
     val nomor_telepon: String
 )
+
+@Serializable
+data class  AllAnggotaResponse(
+    val status: Boolean,
+    val message: String,
+    val data: List<Anggota>
+)
+
+@Serializable
+data class  AnggotaDetailResponse(
+    val status: Boolean,
+    val message: String,
+    val data: Anggota
+)
