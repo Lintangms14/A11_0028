@@ -2,6 +2,10 @@ package com.example.finalprojecta11.ui.viewmodel.buku
 
 import com.example.finalprojecta11.model.Buku
 
+fun Buku.toUpdateUiState(): UpdateUiState = UpdateUiState(
+    updateUiEvent = toUpdateUiEvent()
+)
+
 data class UpdateUiState(
     val updateUiEvent: UpdateUiEvent = UpdateUiEvent()
 )
