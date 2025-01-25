@@ -2,6 +2,10 @@ package com.example.finalprojecta11.ui.viewmodel.buku
 
 import com.example.finalprojecta11.model.Buku
 
+fun Buku.toUiStateBk(): InsertUiState = InsertUiState(
+    insertUiEvent = toInsertUiEvent()
+)
+
 data class InsertUiState(
     val insertUiEvent: InsertUiEvent = InsertUiEvent()
 )
