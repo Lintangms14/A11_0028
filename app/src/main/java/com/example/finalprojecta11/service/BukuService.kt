@@ -24,7 +24,7 @@ interface BukuService {
     suspend fun getAllBuku(): AllBukuResponse
 
     @GET("{id_buku}")
-    suspend fun getBukuByNim(@Path("id_buku") id_buku: String): BukuDetailResponse
+    suspend fun getBukuByid(@Path("id_buku") id_buku: String): BukuDetailResponse
 
     @PUT("{id_buku}")
     suspend fun updateBuku(@Path("id_buku") id_buku: String, @Body buku: Buku)
