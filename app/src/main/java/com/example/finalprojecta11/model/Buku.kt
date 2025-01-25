@@ -10,3 +10,17 @@ data class Buku(
     val kategori: String,
     val status: String
 )
+
+@Serializable
+data class  AllBukuResponse(
+    val status: Boolean,
+    val message: String,
+    val data: List<Buku>
+)
+
+@Serializable
+data class  BukuDetailResponse(
+    val status: Boolean,
+    val message: String,
+    val data: Buku
+)
