@@ -56,7 +56,7 @@ fun EntryBkScreen(
             innerPadding ->
         EntryBody(
             insertUiState = viewModel.uiState,
-            onSiswaValueChange = viewModel::updateInsertBkState,
+            onBukuValueChange = viewModel::updateInsertBkState,
             onSaveClick = {
                 coroutineScope.launch {
                     viewModel.insertBk()
@@ -74,7 +74,7 @@ fun EntryBkScreen(
 @Composable
 fun EntryBody(
     insertUiState: InsertUiState,
-    onSiswaValueChange: (InsertUiEvent) -> Unit,
+    onBukuValueChange: (InsertUiEvent) -> Unit,
     onSaveClick: () -> Unit,
     modifier: Modifier = Modifier
 ){
@@ -84,7 +84,7 @@ fun EntryBody(
     ){
         FormInput(
             insertUiEvent = insertUiState.insertUiEvent,
-            onValueChange = onSiswaValueChange,
+            onValueChange = onBukuValueChange,
             modifier = Modifier.fillMaxWidth()
         )
         Button(
