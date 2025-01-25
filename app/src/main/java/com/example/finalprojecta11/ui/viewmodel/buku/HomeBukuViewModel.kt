@@ -32,10 +32,10 @@ class HomeBukuViewModel(private val Bk: BukuRepository) : ViewModel() {
             BkUiState = try {
                 HomeUiState.Success(Bk.getBuku().data)
             } catch (e: IOException) {
-                Log.e("GetMhsError", "IOException occurred: ${e.message}", e)
+                Log.e("GetBkError", "IOException occurred: ${e.message}", e)
                 HomeUiState.Error
             } catch (e: HttpException) {
-                Log.e("GetMhsError", "HttpException occurred: ${e.message}", e)
+                Log.e("GetBkError", "HttpException occurred: ${e.message}", e)
                 HomeUiState.Error
             }
         }
