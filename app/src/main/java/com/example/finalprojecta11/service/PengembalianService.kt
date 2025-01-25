@@ -1,6 +1,7 @@
 package com.example.finalprojecta11.service
 
 import com.example.finalprojecta11.model.AllPeminjamanResponse
+import com.example.finalprojecta11.model.AllPengembalianResponse
 import com.example.finalprojecta11.model.Peminjaman
 import com.example.finalprojecta11.model.PeminjamanDetailResponse
 import com.example.finalprojecta11.model.Pengembalian
@@ -23,7 +24,7 @@ interface PengembalianService {
     suspend fun insertPengembalian( @Body pengembalian: Pengembalian)
 
     @GET(".")
-    suspend fun getAllPengembalian(): AllPeminjamanResponse
+    suspend fun getAllPengembalian(): AllPengembalianResponse
 
     @GET("{id_pengembalian}")
     suspend fun getPengembalianByid(@Path("id_pengembalian") id_pengembalian: String): PengembalianDetailResponse
