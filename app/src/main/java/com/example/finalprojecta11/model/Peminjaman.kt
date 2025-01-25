@@ -10,3 +10,17 @@ data class Peminjaman(
     val tanggal_peminjaman: String,
     val tanggal_pengembalian: String
 )
+
+@Serializable
+data class  AllPeminjamanResponse(
+    val status: Boolean,
+    val message: String,
+    val data: List<Peminjaman>
+)
+
+@Serializable
+data class  PeminjamanDetailResponse(
+    val status: Boolean,
+    val message: String,
+    val data: Peminjaman
+)
