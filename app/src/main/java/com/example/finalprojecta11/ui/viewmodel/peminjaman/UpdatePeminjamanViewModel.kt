@@ -1,6 +1,54 @@
 package com.example.finalprojecta11.ui.viewmodel.peminjaman
 
+import android.os.Build
+import androidx.annotation.RequiresExtension
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.finalprojecta11.model.Peminjaman
+import com.example.finalprojecta11.repository.PeminjamanRepository
+import kotlinx.coroutines.launch
+import okio.IOException
+import retrofit2.HttpException
+
+class UpdatePeminjamanViewModel(private val Pmjmn: PeminjamanRepository) : ViewModel() {
+    var UpdateuiState by mutableStateOf(UpdatePeminjamanUiState())
+        private set
+
+    fun updateState(updateUiEvent: UpdatePeminjamanUiEvent) {
+        UpdateuiState = UpdatePeminjamanUiState(updatePeminjamanUiEvent = updateUiEvent)
+    }
+
+    @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
+    fun loadPeminjaman(id_peminjaman: String) {
+        viewModelScope.launch {
+            try {
+                val peminjaman = Pmjmn.getPeminjamanByid(id_peminjaman)
+                UpdateuiState = peminjaman.toUpdateUiState()
+            } catch (e: IOException) {
+                e.printStackTrace()
+            } catch (e: HttpException) {
+                e.printStackTrace()
+            }
+        }
+    }
+
+    @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
+    fun updatePmjmn() {
+        viewModelScope.launch {
+            try {
+                val peminjaman = UpdateuiState.updatePeminjamanUiEvent.toPmjmn()
+                Pmjmn.updatePeminjaman(peminjaman.id_peminjaman, peminjaman)
+            } catch (e: IOException) {
+                e.printStackTrace()
+            } catch (e: HttpException) {
+                e.printStackTrace()
+            }
+        }
+    }
+}
 
 fun Peminjaman.toUpdateUiState(): UpdatePeminjamanUiState = UpdatePeminjamanUiState(
     updatePeminjamanUiEvent = toUpdateUiEvent()
