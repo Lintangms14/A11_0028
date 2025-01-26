@@ -18,7 +18,7 @@ sealed class HomePengembalianUiState{
     object Loading : HomePengembalianUiState()
 }
 
-class HomePeminjamanViewModel(private val Pngmbln: PengembalianRepository) : ViewModel() {
+class HomePengembalianViewModel(private val Pngmbln: PengembalianRepository) : ViewModel() {
     var PngmblnUiState: HomePengembalianUiState by mutableStateOf(HomePengembalianUiState.Loading)
         private set
 
