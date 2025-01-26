@@ -2,6 +2,10 @@ package com.example.finalprojecta11.ui.viewmodel.pengembalian
 
 import com.example.finalprojecta11.model.Pengembalian
 
+fun Pengembalian.toUiStatePngmbln(): InsertPengembalianUiState = InsertPengembalianUiState(
+    insertPengembalianUiEvent = toInsertUiEvent()
+)
+
 data class InsertPengembalianUiState(
     val insertPengembalianUiEvent: InsertPengembalianUiEvent = InsertPengembalianUiEvent()
 )
