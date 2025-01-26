@@ -1,6 +1,28 @@
 package com.example.finalprojecta11.ui.viewmodel.pengembalian
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
+import androidx.lifecycle.ViewModel
 import com.example.finalprojecta11.model.Pengembalian
+import com.example.finalprojecta11.repository.PengembalianRepository
+
+class InsertPengembalianViewModel(private val Pngmbln: PengembalianRepository) : ViewModel() {
+    var uiState by mutableStateOf(InsertPengembalianUiState())
+        private set
+
+    fun updateInsertPngmblnState(insertPengembalianUiEvent: InsertPengembalianUiEvent) {
+        uiState = InsertPengembalianUiState(insertPengembalianUiEvent = insertPengembalianUiEvent)
+    }
+
+    suspend fun insertPngmbln() {
+        try {
+            Pngmbln.insertPengembalian(uiState.insertPengembalianUiEvent.toPngmbln())
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+}
 
 fun Pengembalian.toUiStatePngmbln(): InsertPengembalianUiState = InsertPengembalianUiState(
     insertPengembalianUiEvent = toInsertUiEvent()
