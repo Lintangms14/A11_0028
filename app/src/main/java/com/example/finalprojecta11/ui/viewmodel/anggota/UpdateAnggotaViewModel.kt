@@ -2,6 +2,10 @@ package com.example.finalprojecta11.ui.viewmodel.anggota
 
 import com.example.finalprojecta11.model.Anggota
 
+data class UpdateAnggotaUiState(
+    val updateAnggotaUiEvent: UpdateAnggotaUiEvent = UpdateAnggotaUiEvent()
+)
+
 fun Anggota.toUpdateUiEvent(): UpdateAnggotaUiEvent = UpdateAnggotaUiEvent(
     id_anggota = id_anggota,
     nama = nama,
