@@ -2,6 +2,13 @@ package com.example.finalprojecta11.ui.viewmodel.anggota
 
 import com.example.finalprojecta11.model.Anggota
 
+fun Anggota.toUpdateUiEvent(): UpdateAnggotaUiEvent = UpdateAnggotaUiEvent(
+    id_anggota = id_anggota,
+    nama = nama,
+    email = email,
+    nomor_telepon = nomor_telepon
+)
+
 fun UpdateAnggotaUiEvent.toAgt(): Anggota = Anggota(
     id_anggota = id_anggota,
     nama = nama,
