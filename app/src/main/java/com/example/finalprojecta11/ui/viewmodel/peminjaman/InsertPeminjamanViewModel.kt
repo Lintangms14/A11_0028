@@ -2,6 +2,10 @@ package com.example.finalprojecta11.ui.viewmodel.peminjaman
 
 import com.example.finalprojecta11.model.Peminjaman
 
+fun Peminjaman.toUiStatePmjmn(): InsertPeminjamanUiState = InsertPeminjamanUiState(
+    insertPeminjamanUiEvent = toInsertUiEvent()
+)
+
 data class InsertPeminjamanUiState(
     val insertPeminjamanUiEvent: InsertPeminjamanUiEvent = InsertPeminjamanUiEvent()
 )
