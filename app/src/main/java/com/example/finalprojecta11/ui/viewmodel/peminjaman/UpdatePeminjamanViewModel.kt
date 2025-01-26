@@ -2,6 +2,10 @@ package com.example.finalprojecta11.ui.viewmodel.peminjaman
 
 import com.example.finalprojecta11.model.Peminjaman
 
+fun Peminjaman.toUpdateUiState(): UpdatePeminjamanUiState = UpdatePeminjamanUiState(
+    updatePeminjamanUiEvent = toUpdateUiEvent()
+)
+
 data class UpdatePeminjamanUiState(
     val updatePeminjamanUiEvent: UpdatePeminjamanUiEvent = UpdatePeminjamanUiEvent()
 )
