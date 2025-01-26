@@ -1,6 +1,28 @@
 package com.example.finalprojecta11.ui.viewmodel.peminjaman
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
+import androidx.lifecycle.ViewModel
 import com.example.finalprojecta11.model.Peminjaman
+import com.example.finalprojecta11.repository.PeminjamanRepository
+
+class InsertPeminjamanViewModel(private val Pmjmn: PeminjamanRepository) : ViewModel() {
+    var uiState by mutableStateOf(InsertPeminjamanUiState())
+        private set
+
+    fun updateInsertPmjmnState(insertPeminjamanUiEvent: InsertPeminjamanUiEvent) {
+        uiState = InsertPeminjamanUiState(insertPeminjamanUiEvent = insertPeminjamanUiEvent)
+    }
+
+    suspend fun insertPmjmn() {
+        try {
+            Pmjmn.insertPeminjaman(uiState.insertPeminjamanUiEvent.toPmjmn())
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+}
 
 fun Peminjaman.toUiStatePmjmn(): InsertPeminjamanUiState = InsertPeminjamanUiState(
     insertPeminjamanUiEvent = toInsertUiEvent()
