@@ -1,6 +1,32 @@
 package com.example.finalprojecta11.ui.viewmodel.anggota
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.finalprojecta11.model.Anggota
+import com.example.finalprojecta11.repository.AnggotaRepository
+import kotlinx.coroutines.launch
+
+class InsertAnggotaViewModel(private val Agt: AnggotaRepository) : ViewModel() {
+    var uiState by mutableStateOf(InsertAnggotaUiState())
+        private set
+
+    fun updateInsertAgtState(insertAnggotaUiEvent: InsertAnggotaUiEvent) {
+        uiState = InsertAnggotaUiState(insertAnggotaUiEvent = insertAnggotaUiEvent)
+    }
+
+    suspend fun insertAgt() {
+        viewModelScope.launch {
+            try {
+                Agt.insertAnggota(uiState.insertAnggotaUiEvent.toAgt())
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
+}
 
 fun Anggota.toUiStateAgt(): InsertAnggotaUiState = InsertAnggotaUiState(
     insertAnggotaUiEvent = toInsertUiEvent()
