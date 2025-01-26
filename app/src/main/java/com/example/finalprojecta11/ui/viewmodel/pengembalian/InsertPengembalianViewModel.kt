@@ -2,6 +2,10 @@ package com.example.finalprojecta11.ui.viewmodel.pengembalian
 
 import com.example.finalprojecta11.model.Pengembalian
 
+data class InsertPengembalianUiState(
+    val insertPengembalianUiEvent: InsertPengembalianUiEvent = InsertPengembalianUiEvent()
+)
+
 fun Pengembalian.toInsertUiEvent(): InsertPengembalianUiEvent = InsertPengembalianUiEvent(
     id_pengembalian = id_pengembalian,
     id_peminjaman = id_peminjaman,
