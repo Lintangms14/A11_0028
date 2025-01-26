@@ -2,6 +2,14 @@ package com.example.finalprojecta11.ui.viewmodel.peminjaman
 
 import com.example.finalprojecta11.model.Peminjaman
 
+fun Peminjaman.toUpdateUiEvent(): UpdatePeminjamanUiEvent = UpdatePeminjamanUiEvent(
+    id_peminjaman = id_peminjaman,
+    nama = nama,
+    id_anggota = id_anggota,
+    tanggal_peminjaman = tanggal_peminjaman,
+    tanggal_pengembalian = tanggal_pengembalian
+)
+
 fun UpdatePeminjamanUiEvent.toPmjmn(): Peminjaman = Peminjaman(
     id_peminjaman = id_peminjaman,
     nama = nama,
