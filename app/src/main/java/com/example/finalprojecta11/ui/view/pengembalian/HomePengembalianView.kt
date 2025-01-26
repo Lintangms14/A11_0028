@@ -6,9 +6,11 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -27,10 +29,45 @@ import androidx.compose.ui.unit.dp
 import com.example.finalprojecta11.R
 import com.example.finalprojecta11.model.Pengembalian
 import com.example.finalprojecta11.ui.navigation.DestinasiNavigasi
+import com.example.finalprojecta11.ui.viewmodel.pengembalian.HomePengembalianUiState
 
 object DestinasiHomePengembalian : DestinasiNavigasi {
     override val route = "home pengembalian"
     override val titleRes = "Home pengembalian"
+}
+
+@Composable
+fun HomeStatus(
+    homeUiState: HomePengembalianUiState,
+    retryAction: () -> Unit,
+    modifier: Modifier = Modifier,
+    onDetailClick: (String) -> Unit,
+    onDeleteClick: (Pengembalian) -> Unit = {},
+){
+    when (homeUiState) {
+        is HomePengembalianUiState.Loading -> OnLoading(
+            modifier = modifier.fillMaxSize()
+        )
+
+        is HomePengembalianUiState.Success ->
+            if (homeUiState.pengembalian.isEmpty()) {
+                return Box(modifier = modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                    Text(text = "Tidak ada data Pengembalian")
+                }
+            } else {
+                PngmblnLayout(
+                    pengembalian = homeUiState.pengembalian,
+                    modifier = modifier.fillMaxWidth(),
+                    onDetailClick = {
+                        onDetailClick(it.id_pengembalian)
+                    }
+                )
+            }
+        is HomePengembalianUiState.Error -> com.example.finalprojecta11.ui.view.anggota.OnError(
+            retryAction,
+            modifier = modifier.fillMaxSize()
+        )
+    }
 }
 
 @Composable
