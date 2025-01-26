@@ -1,5 +1,7 @@
 package com.example.finalprojecta11.ui.view.peminjaman
 
+import android.os.Build
+import androidx.annotation.RequiresExtension
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -16,25 +18,84 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Button
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.finalprojecta11.R
 import com.example.finalprojecta11.model.Peminjaman
+import com.example.finalprojecta11.ui.customewidget.CostumeTopAppBar
 import com.example.finalprojecta11.ui.navigation.DestinasiNavigasi
+import com.example.finalprojecta11.ui.viewmodel.PenyediaViewModel
 import com.example.finalprojecta11.ui.viewmodel.peminjaman.HomePeminjamanUiState
+import com.example.finalprojecta11.ui.viewmodel.peminjaman.HomePeminjamanViewModel
 
 object DestinasiHomePeminjaman : DestinasiNavigasi {
     override val route = "home peminjaman"
     override val titleRes = "Home Peminjaman"
 }
+
+@RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun HomePeminjamanScreen(
+    navigateToitemEntry: () -> Unit,
+    navigateBack: () -> Unit = {},
+    modifier: Modifier = Modifier,
+    onDetailClick: (String) -> Unit = {},
+    viewModel: HomePeminjamanViewModel = viewModel(factory = PenyediaViewModel.Factory)
+){
+    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
+    Scaffold(
+        modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+        topBar = {
+            CostumeTopAppBar(
+                title = DestinasiHomePeminjaman.titleRes,
+                canNavigateBack = true,
+                scrollBehavior = scrollBehavior,
+                onRefresh = {
+                    viewModel.getPmjmn()
+                },
+                navigateUp = navigateBack
+            )
+        },
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = navigateToitemEntry,
+                shape = MaterialTheme.shapes.medium,
+                modifier = Modifier.padding(18.dp)
+            ){
+                Icon(imageVector = Icons.Default.Add, contentDescription = "Add Peminjaman")
+            }
+        },
+    ){ innerPadding ->
+        HomeStatus(
+            homeUiState = viewModel.PmjmnUiState,
+            retryAction = { viewModel.getPmjmn() },
+            modifier = Modifier.padding(innerPadding),
+            onDetailClick = onDetailClick, onDeleteClick = {
+                viewModel.deletePmjmn(it.id_peminjaman)
+                viewModel.getPmjmn()
+            }
+        )
+    }
+}
+
 
 @Composable
 fun HomeStatus(
