@@ -6,9 +6,11 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -27,11 +29,42 @@ import androidx.compose.ui.unit.dp
 import com.example.finalprojecta11.R
 import com.example.finalprojecta11.model.Peminjaman
 import com.example.finalprojecta11.ui.navigation.DestinasiNavigasi
+import com.example.finalprojecta11.ui.viewmodel.peminjaman.HomePeminjamanUiState
 
 object DestinasiHomePeminjaman : DestinasiNavigasi {
     override val route = "home peminjaman"
     override val titleRes = "Home Peminjaman"
 }
+
+@Composable
+fun HomeStatus(
+    homeUiState: HomePeminjamanUiState,
+    retryAction: () -> Unit,
+    modifier: Modifier = Modifier,
+    onDetailClick: (String) -> Unit,
+    onDeleteClick: (Peminjaman) -> Unit = {},
+){
+    when (homeUiState) {
+        is HomePeminjamanUiState.Loading -> OnLoading(modifier = modifier.fillMaxSize())
+
+        is HomePeminjamanUiState.Success ->
+            if (homeUiState.peminjaman.isEmpty()) {
+                return Box(modifier = modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                    Text(text = "Tidak ada data Peminjaman")
+                }
+            } else {
+                PmjmnLayout (
+                    peminjaman = homeUiState.peminjaman,
+                    modifier = modifier.fillMaxWidth(),
+                    onDetailClick = {
+                        onDetailClick(it.id_anggota)
+                    }
+                )
+            }
+        is HomePeminjamanUiState.Error -> OnError(retryAction, modifier = modifier.fillMaxSize())
+    }
+}
+
 
 @Composable
 fun OnLoading(modifier: Modifier = Modifier) {
