@@ -29,6 +29,7 @@ import com.example.finalprojecta11.ui.view.buku.EntryBkScreen
 import com.example.finalprojecta11.ui.view.buku.HomeScreen
 import com.example.finalprojecta11.ui.view.buku.UpdateBkScreen
 import com.example.finalprojecta11.ui.view.peminjaman.DestinasiDetailPeminjaman
+import com.example.finalprojecta11.ui.view.peminjaman.DestinasiEntryPeminjaman
 import com.example.finalprojecta11.ui.view.peminjaman.DestinasiHomePeminjaman
 import com.example.finalprojecta11.ui.view.peminjaman.DestinasiUpdatePeminjaman
 import com.example.finalprojecta11.ui.view.peminjaman.DetailPeminjamanView
@@ -62,7 +63,7 @@ fun PengelolaHalaman(navController: NavHostController = rememberNavController())
                     navController.navigate(DestinasiHomePeminjaman.route)
                 },
                 onPengembalianButton = {
-                    navController.navigate(DestinasiHomePeminjaman.route)
+                    navController.navigate(DestinasiHomePengembalian.route)
                 }
             )
         }
@@ -135,7 +136,7 @@ fun PengelolaHalaman(navController: NavHostController = rememberNavController())
         //Anggota
         composable(DestinasiHomeAnggota.route){
             HomeAnggotaScreen(
-                navigateToitemEntry = {navController.navigate(DestinasiHomeAnggota.route)},
+                navigateToitemEntry = {navController.navigate(DestinasiEntryAnggota.route)},
                 onDetailClick = {id_anggota ->
                     navController.navigate("${DestinasiDetailAnggota.route}/$id_anggota")
                     println(
@@ -198,9 +199,9 @@ fun PengelolaHalaman(navController: NavHostController = rememberNavController())
             }
         }
         //Peminjaman
-        composable(DestinasiHomeAnggota.route){
+        composable(DestinasiHomePeminjaman.route){
             HomePeminjamanScreen(
-                navigateToitemEntry = {navController.navigate(DestinasiHomePeminjaman.route)},
+                navigateToitemEntry = {navController.navigate(DestinasiEntryPeminjaman.route)},
                 onDetailClick = {id_peminjaman ->
                     navController.navigate("${DestinasiDetailPeminjaman.route}/$id_peminjaman")
                     println(
@@ -213,7 +214,7 @@ fun PengelolaHalaman(navController: NavHostController = rememberNavController())
                 }
             )
         }
-        composable(DestinasiEntryAnggota.route){
+        composable(DestinasiEntryPeminjaman.route){
             EntryPmjmnScreen(navigateBack = {
                 navController.navigate(DestinasiHomePeminjaman.route){
                     popUpTo(DestinasiHomePeminjaman.route){
@@ -266,7 +267,7 @@ fun PengelolaHalaman(navController: NavHostController = rememberNavController())
         //Pengembalian
         composable(DestinasiHomePengembalian.route){
             HomePengembalianScreen(
-                navigateToitemEntry = {navController.navigate(DestinasiHomePengembalian.route)},
+                navigateToitemEntry = {navController.navigate(DestinasiEntryPengembalian.route)},
                 onDetailClick = {id_pengembalian ->
                     navController.navigate("${DestinasiDetailPemngembalian.route}/$id_pengembalian")
                     println(
