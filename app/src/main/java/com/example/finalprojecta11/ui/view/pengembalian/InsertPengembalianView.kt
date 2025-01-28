@@ -48,7 +48,7 @@ fun EntryPngmblnScreen(
         modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
             CostumeTopAppBar(
-                title = DestinasiEntryAnggota.titleRes,
+                title = DestinasiEntryPengembalian.titleRes,
                 canNavigateBack = true,
                 scrollBehavior = scrollBehavior,
                 navigateUp = navigateBack

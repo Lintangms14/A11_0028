@@ -41,9 +41,7 @@ import com.example.finalprojecta11.R
 import com.example.finalprojecta11.model.Pengembalian
 import com.example.finalprojecta11.ui.customewidget.CostumeTopAppBar
 import com.example.finalprojecta11.ui.navigation.DestinasiNavigasi
-import com.example.finalprojecta11.ui.view.anggota.DestinasiHomeAnggota
 import com.example.finalprojecta11.ui.viewmodel.PenyediaViewModel
-import com.example.finalprojecta11.ui.viewmodel.anggota.HomeAnggotaViewModel
 import com.example.finalprojecta11.ui.viewmodel.pengembalian.HomePengembalianUiState
 import com.example.finalprojecta11.ui.viewmodel.pengembalian.HomePengembalianViewModel
 
@@ -67,7 +65,7 @@ fun HomePengembalianScreen(
         modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
             CostumeTopAppBar(
-                title = DestinasiHomeAnggota.titleRes,
+                title = DestinasiHomePengembalian.titleRes,
                 canNavigateBack = true,
                 scrollBehavior = scrollBehavior,
                 onRefresh = {
