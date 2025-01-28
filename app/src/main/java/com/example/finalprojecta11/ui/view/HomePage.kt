@@ -47,8 +47,8 @@ fun SplashView(
             .fillMaxSize()
             .background(brush = Brush.verticalGradient(
                 colors = listOf(
-                    Color(0xFF009688),
-                    Color(0xFF00796B)
+                    Color(0xFF6A11CB),
+                    Color(0xFF2575FC)
                 )
             )),
         verticalArrangement = Arrangement.Center,
@@ -75,7 +75,7 @@ fun SplashView(
         Spacer(modifier = Modifier.height(24.dp))
 
         val buttonColors = ButtonDefaults.buttonColors(
-            contentColor = Color(0xFF00796B)
+            contentColor = Color.White
         )
 
         Button(
